@@ -1,24 +1,31 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'java'
 }
 
-group = 'org.spring.http.converter.json'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
 
-repositories {
-    mavenCentral()
-}
+    group = 'com.naver.fams'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '1.8'
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
     }
-}
 
-test {
-    useJUnitPlatform()
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'http://repo.navercorp.com/maven2' }
+        maven { url 'http://repo.navercorp.com/m2-snapshot-repository/' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }
